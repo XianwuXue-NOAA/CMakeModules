@@ -15,7 +15,10 @@ if(DEFINED ENV{CRTM_LIB})
 
   get_filename_component(lib_dir ${${uppercase_name}_LIB} DIRECTORY)
   find_library(crtm_path NAMES ${versioned_lib_name} PATHS ${lib_dir} NO_DEFAULT_PATH)
-  
+  if(NOT crtm_path)
+    set(versioned_lib_name ${name})
+    find_library(crtm_path NAMES ${versioned_lib_name} PATHS ${lib_dir} NO_DEFAULT_PATH)
+  endif() 
   add_library(${name} STATIC IMPORTED)
   set_target_properties(${name} PROPERTIES
     IMPORTED_LOCATION ${crtm_path}

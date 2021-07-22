@@ -13,9 +13,12 @@ if(DEFINED ENV{NEMSIOGFS_LIB} )
   set(versioned_lib_name ${name}_${version})
 
   if(EXISTS ${${uppercase_name}_LIB${kind}} )
-  get_filename_component(lib_dir ${${uppercase_name}_LIB} DIRECTORY)
+    get_filename_component(lib_dir ${${uppercase_name}_LIB} DIRECTORY)
     find_library(nemsiogfs_path NAMES ${versioned_lib_name} PATHS ${lib_dir} NO_DEFAULT_PATH)
-  
+    if(NOT nemsiogfs_path)
+      set(versioned_lib_name ${name})
+      find_library(nemsiogfs_path NAMES ${versioned_lib_name} PATHS ${lib_dir} NO_DEFAULT_PATH)
+    endif() 
     add_library(${name} STATIC IMPORTED)
     set_target_properties(${name} PROPERTIES
       IMPORTED_LOCATION ${nemsiogfs_path}

@@ -15,7 +15,10 @@ if(DEFINED ENV{NEMSIO_LIB} )
   if(EXISTS ${${uppercase_name}_LIB} )
     get_filename_component(lib_dir ${${uppercase_name}_LIB} DIRECTORY)
     find_library(nemsio_path NAMES ${versioned_lib_name} PATHS ${lib_dir} NO_DEFAULT_PATH)
-  
+    if(NOT nemsio_path)
+      set(versioned_lib_name ${name})
+      find_library(nemsio_path NAMES ${versioned_lib_name} PATHS ${lib_dir} NO_DEFAULT_PATH)
+    endif() 
     add_library(${name} STATIC IMPORTED)
     set_target_properties(${name} PROPERTIES
       IMPORTED_LOCATION ${nemsio_path}

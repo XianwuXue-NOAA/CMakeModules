@@ -23,7 +23,10 @@ if(DEFINED ENV{IP_LIBd} )
     if(EXISTS ${${uppercase_name}_LIB${kind}} )
       get_filename_component(lib_dir ${${uppercase_name}_LIB${kind}} DIRECTORY)
       find_library(ip_path_${kind} NAMES ${versioned_lib_name} PATHS ${lib_dir} NO_DEFAULT_PATH)
-    
+      if(NOT ip_path_${kind})
+        set(versioned_lib_name ${name}_${kind})
+        find_library(ip_path_${kind} NAMES ${versioned_lib_name} PATHS ${lib_dir} NO_DEFAULT_PATH)
+      endif() 
       add_library(${lib_name} STATIC IMPORTED)
       set_target_properties(${lib_name} PROPERTIES
         IMPORTED_LOCATION ${ip_path_${kind}}
