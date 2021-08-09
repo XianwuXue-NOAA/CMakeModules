@@ -19,7 +19,7 @@ if(DEFINED ENV{BACIO_LIB4})
     if(EXISTS ${${uppercase_name}_LIB${kind}} )
       get_filename_component(lib_dir ${${uppercase_name}_LIB${kind}} DIRECTORY)
       find_library(bacio_path_${kind} NAMES ${versioned_lib_name} PATHS ${lib_dir} NO_DEFAULT_PATH)
-      if(NOT bacio_path_${kind}) #For Acorn because the name is changed
+      if(NOT bacio_path_${kind}) #For WCOSS2 because the name is changed
         set(versioned_lib_name ${name}_${kind})
         find_library(bacio_path_${kind} NAMES ${versioned_lib_name} PATHS ${lib_dir} NO_DEFAULT_PATH)
       endif()

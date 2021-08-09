@@ -1,5 +1,5 @@
-macro (setACORN)
-  message("Setting paths for Acorn")
+macro (setWCOSS2)
+  message("Setting paths for WCOSS2")
   option(FIND_HDF5 "Try to Find HDF5 libraries" OFF)
   option(FIND_HDF5_HL "Try to Find HDF5 libraries" OFF)
 
